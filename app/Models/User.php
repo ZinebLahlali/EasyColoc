@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -17,10 +18,20 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+     public function colocations(): BelongsToMany
+     {
+        return $this->belongsToMany(colocation::class);
+     }
+
+
     protected $fillable = [
+        'photo',
         'name',
+        'pseudo',
         'email',
         'password',
+      
+        
     ];
 
     /**

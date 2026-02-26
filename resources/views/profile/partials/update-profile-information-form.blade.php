@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -22,11 +22,24 @@
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
+        <div>
+            <x-input-label for="pseudo" :value="__('Pseudo')"/>
+            <x-text-input name="pseudo" type="text" class="mt-1 block w-full" :value="old('pseudo', $user->pseudo)"/>   
+        </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            <div>
+                <x-input-label for="photo" value="Photo de profil"/>
+                {{--Affichage de photo acteul--}}
+                @if($user->photo)
+                <img src="{{ asset('stoarge/' . $user->photo) }}" alt="" class="w-24 h-24 rounded-full mb-3">
+                @endif
+                <input type="file" name="photo" class="mt-1 block w-full" :value="old('photo', $user->photo)" >
+            </div>
+            
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
