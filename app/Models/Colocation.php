@@ -18,4 +18,6 @@ class Colocation extends Model
     'owner_id',
    ];
 
+   
+
 }

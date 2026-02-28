@@ -15,6 +15,28 @@ class colocationController extends Controller
         return view('colocation.create');
     }
 
+    public function show($id)
+    {
+        //  dd('asdasd');
+        $colocations = Colocation::findOrFail($id);
+        // dd($colocations);
+        return view('colocations.show', compact('colocations'));
+        // return view('colocations.showDetails');
+    }
+
+     public function showDetails()
+    {
+        return view('colocations.show');
+    }
+
+    public function index()
+    {
+        $colocations = Colocation::all();
+        return view('colocations.index', compact('colocations'));
+    }
+    
+
+
     public function store(Request $request)
     {
        $request->validate([
@@ -37,6 +59,11 @@ class colocationController extends Controller
 
 
        return redirect()->back()->with('success', 'Colocation ajoutée');
+    }
+
+    public function showColocation($id)
+    {
+       
     }
 
 

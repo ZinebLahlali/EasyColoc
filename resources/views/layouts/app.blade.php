@@ -15,13 +15,13 @@
         </div>
         
         <nav class="space-y-4 flex-1">
-            <a href="#" class="flex items-center gap-3 text-gray-600 hover:text-indigo-600">
+            <a href="{{route('dashboard')}}" class="flex items-center gap-3 text-gray-600 hover:text-indigo-600">
                 <i class="fas fa-th-large w-5"></i> Dashboard
             </a>
-            <a href="#" class="flex items-center gap-3 text-indigo-600 font-semibold bg-indigo-50 p-2 rounded-lg">
+            <a href="{{route('colocations.index')}}" class="flex items-center gap-3 text-indigo-600 font-semibold bg-indigo-50 p-2 rounded-lg">
                 <i class="fas fa-users w-5"></i> Colocations
             </a>
-            <a href="#" class="flex items-center gap-3 text-gray-600 hover:text-indigo-600">
+            <a href="{{route('profile.edit')}}" class="flex items-center gap-3 text-gray-600 hover:text-indigo-600">
                 <i class="fas fa-user w-5"></i> Profile
             </a>
         </nav>
