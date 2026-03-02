@@ -5,10 +5,10 @@
 <div>
 
     <!-- Message succès -->
-    <div class="bg-green-100 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-8 flex items-center gap-2">
+    <!-- <div class="bg-green-100 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-8 flex items-center gap-2">
         <span class="w-2 h-2 bg-green-500 rounded-full"></span>
         Paiement enregistré.
-    </div>
+    </div> -->
 
     <!-- Header -->
     <div class="flex justify-between items-start mb-6">
@@ -76,7 +76,7 @@
                     </td>
 
                         <td class="px-6 py-4 font-bold text-gray-800 text-center">
-                            {{ $expense->montant }} €
+                            {{ $expense->montant }} 
                         </td>
 
                         <td class="px-6 py-4 text-right text-gray-300">
@@ -91,14 +91,26 @@
 
         <!-- Sidebar -->
         <div class="space-y-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <!-- <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                 <h3 class="font-bold text-gray-800 mb-4">Qui doit à qui ?</h3>
                 <div class="bg-green-50 p-4 rounded-xl border border-green-100">
                     <p class="text-xs text-gray-500 uppercase font-bold mb-1">Dette en cours</p>
                     <p class="text-sm text-gray-700">user 2 → admin</p>
                     <p class="text-2xl font-bold text-green-600">30,00 €</p>
                 </div>
-            </div>
+            </div> -->
+                <div class="mb-6 p-4 bg-gray-100 rounded-xl">
+                 
+
+                    <p><strong>Total des dépenses :</strong> {{$expensesTotal }} €</p>
+
+                    <p><strong>Nombre d'utilisateurs :</strong> {{ $usersTotal }}</p>
+
+                    <p><strong>Part par personne :</strong> {{ $totalParIndividuelle }} €</p>
+
+                    <p><strong>Total payé :</strong> {{ $totalPayee }} €</p>
+
+                </div>
         </div>
     </div>
 
@@ -114,7 +126,7 @@
         <h2 class="text-3xl font-bold text-gray-800 mb-2">Inviter un membre</h2>
         <p class="text-gray-400 mb-8">Ajoutez un nouveau colocataire à votre groupe.</p>
        
-        <form action="{{route('send.invitation', $colocations->id)}}" method="POST">
+        <form action="{{route('send.invitation', $colocation->id)}}" method="POST">
             @csrf
 
             <div class="mb-4">
@@ -141,9 +153,9 @@
 </div>
 <!--MODAL Category -->
 
-<form id='categoryForm' action="{{route('categories.store', $colocations->id)}}" method="POST">
+<form id='categoryForm' action="{{route('categories.store', $colocation->id)}}" method="POST">
             @csrf
-              <input type="hidden" name="colocation_id" value="{{$colocations->id}}">
+              <input type="hidden" name="colocation_id" value="{{$colocation->id}}">
             <div class="mb-4">
                 <label class="block text-sm font-bold text-gray-500 mb-3 ml-1 uppercase tracking-wide">
                     Categorie
@@ -176,17 +188,16 @@
        
         <form action="{{ route('create.expense') }}" method="POST">
             @csrf
-            <input type="hidden" name="colocation_id" value="{{$colocations->id}}">
+            <input type="hidden" name="colocation_id" value="{{$colocation->id}}">
 
             <!-- Choisir la catégorie -->
             <div class="mb-4">
                 <label class="block text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">
                     Catégorie
                 </label>
-                <input type="hidden" name="categorie_id" value="{{$categories->id}}">
                 <select name="categorie_id" required
                         class="w-full px-5 py-4 bg-gray-50 border-gray-200 border-2 rounded-2xl focus:border-indigo-500 focus:ring-0 transition text-gray-700">
-                    @foreach($colocations->categories as $categorie)
+                    @foreach($colocation->categories as $categorie)
                         <option value="{{ $categorie->id }}">{{ $categorie->titre }}</option>
                     @endforeach
                 </select>

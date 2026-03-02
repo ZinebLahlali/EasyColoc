@@ -37,7 +37,9 @@
 
     <main class="flex-1 flex flex-col">
         <header class="flex justify-between items-center p-6 bg-white border-b">
-            <h1 class="text-xl font-bold italic text-gray-700">COLOC 1</h1>
+           
+            <h1 class="text-xl font-bold italic text-gray-700"></h1>
+           
             <div class="flex items-center gap-4">
                 <span class="text-xs text-green-500 font-semibold uppercase">User 1 en ligne</span>
                 <div class="w-10 h-10 bg-gray-800 text-white flex items-center justify-center rounded-full font-bold">U</div>

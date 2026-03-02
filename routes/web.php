@@ -64,3 +64,4 @@ Route::get('/colocations/{colocation}/categories/create', [CategorieController::
 Route::post('/colocations/{colocation}/categories', [CategorieController::class, 'storeCategory'])->name('categories.store');
 Route::get('/expense/create', [ExpenseController::class, 'showFormExpense']);
 Route::post('/expenses', [ExpenseController::class, 'storeExpense'])->name('create.expense');
+Route::get('/colocations/{id}/calculateur', [colocationController::class, 'calculateur'])->name('colocatios.calculateur');

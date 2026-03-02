@@ -7,6 +7,7 @@ use App\Models\Colocation;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Categorie;
 use App\Models\Expense;
+use App\Models\User;
 
 
 
@@ -14,18 +15,35 @@ class ColocationController extends Controller
 {
     public function create()
     {
-        return view('colocation.create');
+        return view('colocations.create');
     }
 
     public function show($id)
     {
-        //  dd('asdasd');
-        $categories = Categorie::findorFail($id);
-        $colocations = Colocation::findOrFail($id);
+        $colocation = Colocation::findOrFail($id);
+        $categories = $colocation->categories;
         $expenses = Expense::where('colocation_id', "=",$id)->get();
-        // dd($colocations);
-        return view('colocations.show', compact('colocations', 'categories', 'expenses'));
-        // return view('colocations.showDetails');
+        $usersTotal = $colocation->users()->count();
+
+        $expensesTotal = $expenses->sum('montant');
+            if ($usersTotal > 0) {
+            $totalParIndividuelle = $expensesTotal / $usersTotal;
+        } else {
+            $totalParIndividuelle = 0;
+        }
+
+          $totalPayee = $expensesTotal;
+
+          return view('colocations.show', compact(
+                'colocation',
+                'categories',
+                'expenses',
+                'expenses',
+                'usersTotal',
+                'expensesTotal',
+                'totalParIndividuelle',
+                'totalPayee'
+        ));
     }
 
     //  public function showDetails()
@@ -66,6 +84,7 @@ class ColocationController extends Controller
        return redirect()->back()->with('success', 'Colocation ajoutée');
     }
 
+    
 
    
 
