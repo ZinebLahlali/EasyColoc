@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\colocationController;
+use App\Http\Controllers\ColocationController as ControllersColocationController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Routing\RouteRegistrar;
@@ -57,3 +60,7 @@ Route::post('/send/{colocation}/invitation', [InvitationController::class, 'stor
 Route::get('/colocations', [colocationController::class, 'index'])->name('colocations.index');
 Route::get('/colocations/{id}', [colocationController::class, 'show'])->name('colocations.show');
 Route::get('/invitations/accept/{token}', [InvitationController::class, 'accept'])->name('invitation.accept');
+Route::get('/colocations/{colocation}/categories/create', [CategorieController::class, 'createCategory'])->name('categories.create');
+Route::post('/colocations/{colocation}/categories', [CategorieController::class, 'storeCategory'])->name('categories.store');
+Route::get('/expense/create', [ExpenseController::class, 'showFormExpense']);
+Route::post('/expenses', [ExpenseController::class, 'storeExpense'])->name('create.expense');
