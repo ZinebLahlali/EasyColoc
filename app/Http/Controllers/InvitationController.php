@@ -10,8 +10,9 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\InvitationMail;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Carbon\Carbon;
 
 use function Symfony\Component\Clock\now;
 
@@ -48,7 +49,7 @@ class InvitationController extends Controller
              Invitation::create([
             'colocation_id' => $colocation->id,
             'token' => $token,
-            'expries_at' => now(),
+            'expries_at' => Carbon::now()->addDay(1),
             'status' => 'pending',
             'email' => $request->email,
         ]);
@@ -57,7 +58,8 @@ class InvitationController extends Controller
 
         Mail::to($request->email)->send(new InvitationMail($token));
 
-        return "Invitaion envoyée à {$request->email}";
+        // return "Invitaion envoyée à {$request->email}";
+        return back();
          } catch (\Exception $e) {
              dd($e->getMessage()); 
             }
@@ -72,20 +74,33 @@ class InvitationController extends Controller
 
     public function accept($token)
     {
-        $invitation = Invitation::where('token', $token)->where('status', 'pending') ->firstOrFail();
-          if($invitation->expries_at < now()){
+        $invitation = Invitation::where('token', $token)->where('status', 'pending')->firstOrFail();
+          if($invitation->expries_at < Carbon::now()){
             return "Désole, cette invitation a expiré.";
           }
           
         $user = Auth::user();
-        if(!$user){
-            return redirect()->route('login')->with('info', "Veuillez vous connecter pour accepter l'invitation.");
-        }  
+
+        $active = $user->colocationActive->first();
+        // echo $active;
+        if($active)
+            {
+                return redirect()->route('colocations.show', $active->id);
+            }
+
         $invitation->colocation->users()->attach($user->id);
 
         $invitation->update(['status' => 'accepted']);
-        return "Félicitations ! Vous êtes maintenant membre de la colocation.";
+
+        return redirect()->route('colocations.show', $invitation->colocation_id)->with('succes', "Félicitations ! Vous êtes maintenant membre de la colocation.");
     }
+
+
+    public function quitterColocation()
+    {
+        if()
+    }
+
 
     /**
      * Display the specified resource.

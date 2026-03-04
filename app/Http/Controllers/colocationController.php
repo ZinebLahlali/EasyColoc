@@ -19,10 +19,10 @@ class ColocationController extends Controller
     }
 
     public function show($id)
-    {
+    {   
         $colocation = Colocation::findOrFail($id);
         $categories = $colocation->categories;
-        $expenses = Expense::where('colocation_id', "=",$id)->get();
+        $expenses = Expense::where('colocation_id', "=",$id)->with('user')->get();
         $usersTotal = $colocation->users()->count();
 
         $expensesTotal = $expenses->sum('montant');

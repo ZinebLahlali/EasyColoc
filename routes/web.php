@@ -36,7 +36,8 @@ require __DIR__.'/auth.php';
 // });
 Route::middleware('auth')->group(function () {
 
-Route::get('/colocation/create', [colocationController::class, 'create'])->name('colocation.create');
+Route::get('/colocation
+/create', [colocationController::class, 'create'])->name('colocation.create');
 
 Route::post('/colocation/create', [colocationController::class, 'store'])->name('colocation.store');
 });
@@ -59,7 +60,7 @@ Route::post('/send/{colocation}/invitation', [InvitationController::class, 'stor
 
 Route::get('/colocations', [colocationController::class, 'index'])->name('colocations.index');
 Route::get('/colocations/{id}', [colocationController::class, 'show'])->name('colocations.show');
-Route::get('/invitations/accept/{token}', [InvitationController::class, 'accept'])->name('invitation.accept');
+Route::get('/invitations/accept/{token}', [InvitationController::class, 'accept'])->middleware('auth', 'verified')->name('invitations.accept');
 Route::get('/colocations/{colocation}/categories/create', [CategorieController::class, 'createCategory'])->name('categories.create');
 Route::post('/colocations/{colocation}/categories', [CategorieController::class, 'storeCategory'])->name('categories.store');
 Route::get('/expense/create', [ExpenseController::class, 'showFormExpense']);

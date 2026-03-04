@@ -3,6 +3,10 @@
 @section('content')
 
 <div>
+    <!-- {{Auth::user()->colocationActive()->with('expenses')->first()}}
+    {{Auth::user()->colocataires()}} -->
+    <!-- {{Auth::user()->colocationActive->first()->expenses}} -->
+
 
     <!-- Message succès -->
     <!-- <div class="bg-green-100 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-8 flex items-center gap-2">
@@ -37,7 +41,7 @@
 
     <!-- Contenu -->
     <div class="grid grid-cols-3 gap-8">
-
+<!-- {{Auth::user()->role->first()->pivot->role}} -->
         <!-- Tableau -->
         <div class="col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-4 border-b flex items-center gap-2 text-gray-500 text-sm">
@@ -71,7 +75,7 @@
 
                     <td class="px-6 py-4">
                         <span class="w-8 h-8 bg-blue-100 text-blue-600 flex items-center justify-center rounded-full text-xs font-bold">
-                            {{ $expense->user->name ?? '' }}
+                            {{ $expense->user->name }}
                         </span>
                     </td>
 
@@ -101,14 +105,12 @@
             </div> -->
                 <div class="mb-6 p-4 bg-gray-100 rounded-xl">
                  
+                    <!-- ce que j'ai payé-->
+                    <p><strong>On vous doit :</strong> {{ Auth::user()->solde_Remboursements()}}</p>
+                    <!-- ce que je dois payer -->
+                    <!-- <p><strong>Vous devez :</strong> {{ $usersTotal }}</p> -->
 
-                    <p><strong>Total des dépenses :</strong> {{$expensesTotal }} €</p>
-
-                    <p><strong>Nombre d'utilisateurs :</strong> {{ $usersTotal }}</p>
-
-                    <p><strong>Part par personne :</strong> {{ $totalParIndividuelle }} €</p>
-
-                    <p><strong>Total payé :</strong> {{ $totalPayee }} €</p>
+                    <!-- <p><strong>Solde :</strong> {{ $totalParIndividuelle }} €</p> -->
 
                 </div>
         </div>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('colocation_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('colocation_id')->references('id')->on('colocations')->onDelete('cascade');
-            $table->string('role');
+            $table->string('role')->default('membre');
             $table->date('left_at')->nullable();
             $table->date('joined_at')->nullable();
             $table->primary(['user_id', 'colocation_id']);  

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Expense extends Model
 {
@@ -19,4 +20,14 @@ class Expense extends Model
     {
         return $this->belongsTo(Categorie::class);
     }
+
+    public function paiements(): HasMany
+    {
+        return $this->hasMany(paiement::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 }

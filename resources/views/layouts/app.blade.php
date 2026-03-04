@@ -41,8 +41,8 @@
             <h1 class="text-xl font-bold italic text-gray-700"></h1>
            
             <div class="flex items-center gap-4">
-                <span class="text-xs text-green-500 font-semibold uppercase">User 1 en ligne</span>
-                <div class="w-10 h-10 bg-gray-800 text-white flex items-center justify-center rounded-full font-bold">U</div>
+                <span class="text-xs text-green-500 font-semibold uppercase">{{Auth::user()->name}}</span>
+                <div class="w-10 h-10 bg-gray-800 text-white flex items-center justify-center rounded-full font-bold"></div>
             </div>
         </header>
 
